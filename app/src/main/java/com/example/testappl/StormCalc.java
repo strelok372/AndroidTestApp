@@ -1,8 +1,6 @@
 package com.example.testappl;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +8,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.zip.Inflater;
 
 public class StormCalc extends AppCompatActivity {
 
@@ -116,7 +111,7 @@ EditText et;
             View view = convertView;
             if(convertView == null){
                 layoutInflater = getLayoutInflater();
-                view = layoutInflater.inflate(R.layout.lv_item, parent, false);
+                view = layoutInflater.inflate(R.layout.lv_item_storm, parent, false);
             }
             ((TextView)view.findViewById(R.id.tv_descrip)).setText(reactive[position]);
             ((TextView)view.findViewById(R.id.tv_val)).setText(result[position]);
