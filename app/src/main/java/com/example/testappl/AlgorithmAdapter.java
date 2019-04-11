@@ -1,40 +1,46 @@
 package com.example.testappl;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ProgressBar;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class AlgorithmAdapter extends BaseAdapter {
 
-    ProgressBar progressBar;
-    //ArrayList<Integer> arrayList;
+    private ProgressBar progressBar;
+    private ArrayList<ProgressItem> itemList = new ArrayList<>();
     private LayoutInflater layoutInflater;
-//    private Integer q[];
     final private String TAG = "My log: ";
-    ArrayList<Integer> list;
 
-    AlgorithmAdapter(Context context) {
+    @SuppressLint("HandlerLeak")
+    private Handler h = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            Log.i(TAG, "Got message.");
+            notifyDataSetChanged();
+        }
+    };
+
+    AlgorithmAdapter(Context context){
         layoutInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        //this.list = list;
-        list = new ArrayList<>();
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return itemList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return list.get(position);
+        return itemList.get(position);
     }
 
     @Override
@@ -43,24 +49,59 @@ public class AlgorithmAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             //layoutInflater = getLayoutInflater();
             convertView = layoutInflater.inflate(R.layout.lv_item_algo, parent, false);
-            Log.i(TAG, "New view created!");
         }
         progressBar = ((ProgressBar) convertView.findViewById(R.id.progressBar2));
-//        q = list.get(position);
-//        progressBar.setMax(q[0]);
-        progressBar.setMax(list.get(position));
-        //progressBar.setProgress(list.get(position)/2);
-        //convertView.
-//        Log.i(TAG, "переменная q = " + q[1]);
-//        progressBar.setProgress(q[1]);
-        //notifyDataSetChanged();
+        ProgressItem pi = itemList.get(position);
+
+        progressBar.setMax(pi.max);
+//        Log.i(TAG, "current pi.max " + pi.max);
+        progressBar.setProgress(pi.cur);
+//        Log.i(TAG, "current pi.cur " + pi.cur);
+
         return convertView;
     }
-    public void pbUpdate(){
-        progressBar.incrementProgressBy(100);
+
+    public void add(final ProgressItem item){
+        final int num = itemList.size();
+        itemList.add(item);
+        new Thread(){
+            @Override
+            public void run() {
+                ProgressItem pi = itemList.get(num);
+                for (int i = 0; i < pi.max / 100; i++) {
+                    try {
+                        pi.cur += 100;
+//                        Log.i(TAG, "Current pi = " + pi.cur + " i = " + i);
+                        sleep(100);
+                    } catch (InterruptedException e) {e.printStackTrace();}
+                    //многовато вызывается раз?
+                    h.sendEmptyMessage(0);
+                }
+                //подсчёт хвостика
+                pi.cur += (pi.max - pi.cur);
+//                Log.i(TAG, "max: " + pi.max + " cur: " + pi.cur);
+                //удаление необходимого элемента, сдвиг если уже был удалён
+                Log.i(TAG, "Удаление элемента " + num);
+                if (itemList.size() == num & num > 0) { itemList.remove(num-1); }
+                else if (itemList.size() < num) { itemList.remove(num-(num-itemList.size()+1)); }
+                else if (itemList.size() > num) {   }
+                else { itemList.remove(num); }
+                Log.i(TAG, "Всего: " + itemList.size() + " потоков.");
+                //финальное обновление
+                h.sendEmptyMessage(0);
+            }
+        }.start();
+    }
+}
+
+class ProgressItem {
+    int max = 0;
+    int cur = 0;
+    ProgressItem(int max){
+        this.max = max;
     }
 }
