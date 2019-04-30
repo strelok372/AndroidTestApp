@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class AlgorithmAdapter extends BaseAdapter {
 
     private ProgressBar progressBar;
-    private ArrayList<ProgressItem> itemList = new ArrayList<>();
+    volatile private ArrayList<ProgressItem> itemList = new ArrayList<>();
     private LayoutInflater layoutInflater;
     final private String TAG = "My log: ";
 
@@ -55,11 +55,13 @@ public class AlgorithmAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.lv_item_algo, parent, false);
         }
         progressBar = ((ProgressBar) convertView.findViewById(R.id.progressBar2));
+        Log.i(TAG, "Позиция: "+position);
         ProgressItem pi = itemList.get(position);
 
         progressBar.setMax(pi.max);
-//        Log.i(TAG, "current pi.max " + pi.max);
         progressBar.setProgress(pi.cur);
+        Log.i(TAG, "Element-"+position + " max: " + pi.max + " cur: "+pi.cur);
+//        Log.i(TAG, "current pi.max " + pi.max);
 //        Log.i(TAG, "current pi.cur " + pi.cur);
 
         return convertView;
@@ -83,14 +85,16 @@ public class AlgorithmAdapter extends BaseAdapter {
                 }
                 //подсчёт хвостика
                 pi.cur += (pi.max - pi.cur);
-//                Log.i(TAG, "max: " + pi.max + " cur: " + pi.cur);
+
                 //удаление необходимого элемента, сдвиг если уже был удалён
                 Log.i(TAG, "Удаление элемента " + num);
+
                 if (itemList.size() == num & num > 0) { itemList.remove(num-1); }
-                else if (itemList.size() < num) { itemList.remove(num-(num-itemList.size()+1)); }
-                else if (itemList.size() > num) {   }
+                else if (itemList.size() < num) { itemList.remove(itemList.size()-1); }
                 else { itemList.remove(num); }
-                Log.i(TAG, "Всего: " + itemList.size() + " потоков.");
+
+                Log.i(TAG, "Осталось: " + itemList.size() + " потоков.");
+
                 //финальное обновление
                 h.sendEmptyMessage(0);
             }
@@ -105,3 +109,4 @@ class ProgressItem {
         this.max = max;
     }
 }
+

@@ -21,4 +21,18 @@
         android:onClick="onClick"
         android:text="Штормгласс калькулятор" />
 
+    <Button
+        android:id="@+id/b_toSampler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="Сэмплер" />
+
+    <Button
+        android:id="@+id/b_toSpring"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="Спринг соединение" />
+
 </LinearLayout>

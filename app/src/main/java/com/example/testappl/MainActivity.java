@@ -30,6 +30,14 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, StormCalc.class);
                 startActivity(intent);
                 break;
+            case R.id.b_toSampler:
+                intent = new Intent(this, Sampler.class);
+                startActivity(intent);
+                break;
+            case R.id.b_toSpring:
+                intent = new Intent(this, Spring.class);
+                startActivity(intent);
+                break;
         }
     }
 
