@@ -1,4 +1,4 @@
-package com.example.testappl;
+package com.example.testappl.Sampler;
 
 public class SamplerItem {
     String filename;

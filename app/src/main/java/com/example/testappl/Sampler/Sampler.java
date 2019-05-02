@@ -1,4 +1,4 @@
-package com.example.testappl;
+package com.example.testappl.Sampler;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+
+import com.example.testappl.R;
 
 public class Sampler extends AppCompatActivity {
     //    SoundPool soundPool;

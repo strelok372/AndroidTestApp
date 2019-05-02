@@ -1,4 +1,4 @@
-package com.example.testappl;
+package com.example.testappl.Sampler;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+
+import com.example.testappl.R;
 
 import java.util.ArrayList;
 

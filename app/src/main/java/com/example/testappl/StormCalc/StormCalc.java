@@ -1,4 +1,4 @@
-package com.example.testappl;
+package com.example.testappl.StormCalc;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -15,6 +15,8 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.testappl.R;
 
 public class StormCalc extends AppCompatActivity {
 

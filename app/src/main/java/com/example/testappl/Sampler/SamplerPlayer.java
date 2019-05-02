@@ -1,4 +1,4 @@
-package com.example.testappl;
+package com.example.testappl.Sampler;
 
 import android.media.MediaPlayer;
 import android.util.Log;

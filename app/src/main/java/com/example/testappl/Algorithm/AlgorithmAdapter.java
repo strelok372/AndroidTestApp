@@ -1,4 +1,4 @@
-package com.example.testappl;
+package com.example.testappl.Algorithm;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ProgressBar;
+
+import com.example.testappl.R;
+
 import java.util.ArrayList;
 
 public class AlgorithmAdapter extends BaseAdapter {

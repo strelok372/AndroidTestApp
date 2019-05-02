@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.testappl.Algorithm.Algorithm;
+import com.example.testappl.Sampler.Sampler;
+import com.example.testappl.Spring.Spring;
+import com.example.testappl.StormCalc.StormCalc;
 
 public class MainActivity extends AppCompatActivity {
 

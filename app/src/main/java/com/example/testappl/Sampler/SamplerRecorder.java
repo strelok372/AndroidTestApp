@@ -1,4 +1,4 @@
-package com.example.testappl;
+package com.example.testappl.Sampler;
 
 import android.media.MediaRecorder;
 import android.os.Environment;
